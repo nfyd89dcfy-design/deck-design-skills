@@ -15,7 +15,10 @@ const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
 await page.goto('file://' + path.resolve(file), { waitUntil: 'networkidle' });
 await page.evaluate(() => document.fonts.ready);
 
-const issues = await page.evaluate(({ ALLOWED, DISCOURAGED }) => {
+const issues = await page.evaluate(({ ALLOWED: ALLOWED0, DISCOURAGED: DISC0 }) => {
+  const allowFonts = (document.body.dataset.allowFonts || '').split(',').map(s => s.trim()).filter(Boolean);
+  const ALLOWED = ALLOWED0.concat(allowFonts);
+  const DISCOURAGED = DISC0.filter(f => !allowFonts.includes(f));
   const out = [];
   const families = new Set();
   let capsLabels = 0;

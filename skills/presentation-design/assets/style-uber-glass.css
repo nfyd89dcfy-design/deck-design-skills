@@ -1,0 +1,49 @@
+/* Стиль "Uber x Liquid Glass" на основе старого варианта КП GT (графит + крем + мягкое стекло).
+   База: Uber DESIGN.md (черно-белый дуэт, пилюля на всем интерактивном, карточки 16-20px,
+   заголовки с заглавной буквы, без капса, без трекинга).
+   Подключать после tokens.css и glass.css. Описание: references/styles/uber-glass.md
+   На <body>: data-style="uber-glass" data-allow-fonts="Inter" (шрифт Inter выбран заказчиком). */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&subset=cyrillic');
+
+:root {
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-text: 'Inter', system-ui, sans-serif;
+  --radius-outer: 20px;   /* карточки и стекло */
+  --radius-inner: 16px;
+  --u-soft: #E9E6DE;      /* мягкий серый для пилюль на кремовом фоне (аналог #efefef у Uber) */
+  --u-shadow-1: 0 4px 16px rgba(0, 0, 0, 0.12);   /* Level 1 */
+  --u-shadow-2: 0 4px 16px rgba(0, 0, 0, 0.16);   /* Level 2 */
+}
+
+.slide.u { font-family: var(--font-text); }
+.u .display { font: 700 80px/1.1 var(--font-display); letter-spacing: 0; }
+.u .title { font: 700 64px/1.1 var(--font-display); letter-spacing: 0; }
+.u .name { font: 700 48px/1.1 var(--font-display); }
+.u .lead { font: 500 32px/1.4 var(--font-text); }
+.u .text { font: 400 28px/1.45 var(--font-text); }
+.u .num { font: 700 120px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.u .num-m { font: 700 72px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+
+/* Пилюля: единственная форма интерактивного и меток. Радиус 999 */
+.u .pill {
+  display: inline-flex; align-items: center; height: 52px; padding: 0 26px;
+  border-radius: 999px; background: var(--u-soft); color: var(--on-light);
+  font: 500 26px/1 var(--font-text); white-space: nowrap;
+}
+.u .pill--dark { background: var(--ink); color: #fff; }
+.u .pill--on-dark { background: rgba(255, 255, 255, 0.12); color: var(--on-dark); }
+.u .pill--lg { height: 72px; padding: 0 40px; font-size: 30px; font-weight: 600; }
+.u .pills { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Плоская карточка с фото (белая, как контейнер иллюстрации у Uber) */
+.u .card { background: #fff; border-radius: var(--radius-outer); box-shadow: var(--u-shadow-1); overflow: hidden; }
+.u .card img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.u .photo-card { position: relative; border-radius: var(--radius-outer); overflow: hidden; box-shadow: var(--u-shadow-2); }
+.u .photo-card > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Стеклянная метка поверх фото */
+.u .chip-glass { position: absolute; display: inline-flex; align-items: center; height: 56px; padding: 0 28px; border-radius: 999px; font: 600 28px/1 var(--font-text); color: #fff; }
+.u .chip-glass--light { color: var(--on-light); }
+
+.u .muted-l { color: var(--on-light-2); }
+.u .muted-d { color: var(--on-dark-2); }

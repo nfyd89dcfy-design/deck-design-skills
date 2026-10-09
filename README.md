@@ -24,6 +24,8 @@
 | `tools/lint-deck.mjs` | Проверка колоды на анти-паттерны (шрифты, рамки, трекинг, стекло в стекле, ё, длинные тире, заглушки) |
 | `tools/render.mjs` | Рендер в PDF и PNG каждого слайда |
 | `assets/style-dell96-glass.css`, `references/styles/dell96-glass.md` | Пресет "Dell 1996 x Liquid Glass": плоские ленты в черной рамке плюс стекло |
+| `assets/style-uber-glass.css`, `references/styles/uber-glass.md` | Пресет "Uber x Liquid Glass" (старый вариант КП GT, пилюли и карточки по Uber) |
+| `examples/deck-uber-glass.html` | Эталон этого стиля, текущий выбор для КП |
 | `examples/deck-dell96.html` | Эталон этого стиля: КП из 5 слайдов |
 | `docs/references.md` | Легкие внешние референсы и сборки: что брать, что нет |
 
