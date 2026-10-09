@@ -2,13 +2,16 @@
    База: Uber DESIGN.md (черно-белый дуэт, пилюля на всем интерактивном, карточки 16-20px,
    заголовки с заглавной буквы, без капса, без трекинга).
    Подключать после tokens.css и glass.css. Описание: references/styles/uber-glass.md
-   На <body>: data-style="uber-glass" data-allow-fonts="Helvetica" (шрифт выбран заказчиком). */
-/* Helvetica: платный шрифт Linotype, в сборке его нет. 'Helvetica' на Linux и в PDF-сборке подменяется метрически идентичным аналогом (Liberation Sans / Arimo, есть кириллица), на Mac используется настоящий Helvetica. */
-@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap&subset=cyrillic');
+   На <body>: data-style="uber-glass" data-allow-fonts="Inter,Caveat" (шрифты выбраны заказчиком). */
+/* Шрифты как в генераторе КП на сайте: Inter (текст и заголовки) + Caveat 700 для акцентных слов (рукописный курсив). Обе гарнитуры с кириллицей. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@700&display=swap&subset=cyrillic');
 
 :root {
-  --font-display: Helvetica, 'Helvetica Neue', Arimo, 'Liberation Sans', Arial, sans-serif;
-  --font-text: Helvetica, 'Helvetica Neue', Arimo, 'Liberation Sans', Arial, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-text: 'Inter', system-ui, sans-serif;
+  --font-script: 'Caveat', 'Marck Script', cursive;
+  --script-on-dark: #8FB8FF;   /* как в генераторе КП (--sc) */
+  --script-on-light: #2558C4;  /* темнее для контраста на креме */
   --radius-outer: 20px;   /* карточки и стекло */
   --radius-inner: 16px;
   --u-soft: #E9E6DE;      /* мягкий серый для пилюль на кремовом фоне (аналог #efefef у Uber) */
@@ -51,3 +54,9 @@
 
 /* Сноска внизу слайда: источники, реквизиты. Одна позиция на всех слайдах, низкий контраст */
 .u .footnote { position: absolute; left: 128px; right: 128px; bottom: 56px; font: 400 24px/1.3 var(--font-text); }
+
+/* Акцентное слово рукописным курсивом: до одной фразы в заголовке, не больше 3 слайдов на колоду.
+   Пример: <h1>Оффер для розничного партнера<br><span class="script">MotoZona</span></h1> */
+.u .script { font-family: var(--font-script); font-weight: 700; font-size: 1.32em; line-height: .8; letter-spacing: 0; font-style: normal; display: inline-block; }
+.slide--dark .script { color: var(--script-on-dark); }
+.slide--light .script { color: var(--script-on-light); }
