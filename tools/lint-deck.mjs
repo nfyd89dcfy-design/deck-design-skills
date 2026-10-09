@@ -18,6 +18,7 @@ await page.evaluate(() => document.fonts.ready);
 const issues = await page.evaluate(({ ALLOWED, DISCOURAGED }) => {
   const out = [];
   const families = new Set();
+  let capsLabels = 0;
   const describe = el => {
     const t = (el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 28);
     return `<${el.tagName.toLowerCase()}${el.className && typeof el.className === 'string' ? '.' + el.className.split(' ')[0] : ''}> ${t}`;
@@ -59,6 +60,8 @@ const issues = await page.evaluate(({ ALLOWED, DISCOURAGED }) => {
         if (/[ёЁ]/.test(txt)) push('error', 'yo', el, 'Буква "ё": заменить на "е"');
         if (/—/.test(txt)) push('error', 'em-dash', el, 'Длинное тире: заменить на "–" или дефис');
         if (/\[[^\]]{1,40}\]/.test(txt)) push('error', 'placeholder', el, 'Заглушка в квадратных скобках в готовом файле');
+        if (cs.textTransform === 'uppercase' && fs < 48) capsLabels++;
+        if ((txt.match(/ · /g) || []).length >= 2) push('warn', 'meta-dots', el, 'Строка из фрагментов через точки: типичный шаблон нейросети, лучше разнести по строкам');
         const ls = parseFloat(cs.letterSpacing) || 0;
         const em = ls / fs;
         if (fs >= 48 && em > 0.02) push('error', 'tracking-display', el, `Трекинг ${em.toFixed(2)}em на крупном тексте: слово растягивают размером, а не трекингом`);
@@ -108,6 +111,7 @@ const issues = await page.evaluate(({ ALLOWED, DISCOURAGED }) => {
     if (textEls > 16) out.push({ level: 'warn', rule: 'density', slide: n, el: '', msg: `${textEls} текстовых блоков: слишком плотно, раздели слайд` });
   });
 
+  if (capsLabels > 2) out.push({ level: 'warn', rule: 'caps-labels', slide: 0, el: '', msg: `${capsLabels} подписей КАПСОМ над заголовками: подпись над каждым заголовком это шаблон. Оставь не больше двух на колоду` });
   const fams = [...families].filter(f => !['serif', 'sans-serif', 'monospace'].includes(f));
   if (fams.length > 2) out.push({ level: 'error', rule: 'too-many-fonts', slide: 0, el: '', msg: `Гарнитур ${fams.length}: ${fams.join(', ')}. Максимум 2` });
   fams.forEach(f => {
