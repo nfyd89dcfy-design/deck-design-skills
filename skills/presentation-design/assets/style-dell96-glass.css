@@ -1,0 +1,70 @@
+/* Стиль "Dell-96 x Liquid Glass".
+   Основа: DESIGN.md Dell 1996 (черная рамка страницы, плоские цветные ленты, Arial Black + Times,
+   жесткие границы 2px, нулевой радиус, жесткая тень-фаска).
+   Сверху: тонкий слой стекла (только скругленное, только поверх цвета или фото).
+   Правило контраста: все плоское и квадратное, все стеклянное мягкое и скругленное.
+   Подключать ПОСЛЕ tokens.css и glass.css. Описание: references/styles/dell96-glass.md */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Tinos:wght@400;700&display=swap&subset=cyrillic');
+
+:root {
+  --font-display: 'Montserrat', 'Tinos', sans-serif; /* замена Arial Black / Helvetica, есть кириллица */
+  --font-text: 'Tinos', 'Times New Roman', serif;    /* замена Times New Roman, есть кириллица */
+
+  --d-ink: #000; --d-paper: #fff;
+  --d-red: #e91d2a;      /* только одна CTA-панель на колоду */
+  --d-yellow: #fcc20f;   /* стикеры */
+  --d-purple: #6a26a4;
+  --d-cream: #fff2c0;    /* текст на красной панели */
+
+  /* Восемь каталожных оттенков: один оттенок на одну линейку */
+  --t-olive: #8e8a25; --t-sage: #b3bd95; --t-salmon: #d77a7a; --t-peach: #e6915d;
+  --t-lime: #c0d4a7;  --t-sky: #9ab6c8;  --t-steel: #a5b8c0; --t-peri: #8c9ae0;
+
+  --frame: 20px;
+  --radius-outer: 28px;  /* радиус только у стекла */
+}
+
+/* Страница в черной рамке. Класс .slide нужен линтеру. */
+.slide.d96 {
+  background: #000; padding: 0 var(--frame) var(--frame);
+  display: flex; flex-direction: column; font-family: var(--font-text); color: #000;
+}
+.d96 .banner {
+  height: 76px; flex: none; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 12px; color: #fff; font: 800 28px/1 var(--font-display); text-transform: uppercase;
+}
+.d96 .banner .brand { display: flex; align-items: center; gap: 16px; }
+.d96 .page { flex: 1; min-height: 0; background: #fff; padding: 36px 48px; display: flex; flex-direction: column; gap: 28px; position: relative; }
+
+/* Блок-заголовок раздела */
+.d96 .block { border: 2px solid #000; padding: 22px 36px; font: 900 56px/1.05 var(--font-display); text-transform: uppercase; }
+
+/* Лента-карточка: белая шапка + цветное тело */
+.d96 .ribbon { display: flex; flex-direction: column; border: 2px solid #000; position: relative; }
+.d96 .ribbon-title { background: #fff; border-bottom: 2px solid #000; padding: 10px 24px; font: 800 28px/1.2 var(--font-display); text-transform: uppercase; }
+.d96 .ribbon-body { flex: 1; padding: 22px 32px; font: 400 32px/1.4 var(--font-text); position: relative; }
+.d96 .big { font: 900 120px/1 var(--font-display); letter-spacing: -0.02em; }
+.d96 .cap { font: 400 32px/1.35 var(--font-text); }
+
+/* Оттенки */
+.tint-olive { background: var(--t-olive); } .tint-sage { background: var(--t-sage); }
+.tint-salmon { background: var(--t-salmon); } .tint-peach { background: var(--t-peach); }
+.tint-lime { background: var(--t-lime); } .tint-sky { background: var(--t-sky); }
+.tint-steel { background: var(--t-steel); } .tint-peri { background: var(--t-peri); }
+
+/* Фото: жесткий прямоугольник с жесткой тенью-фаской. Без рамки и без скруглений. */
+.d96 .photo-hard { display: block; object-fit: cover; border-radius: 0; box-shadow: 8px 8px 0 #000; }
+
+/* Стикер (плоский, не стекло) */
+.d96 .sticker { display: inline-block; background: var(--d-yellow); border: 2px solid #000; box-shadow: 4px 4px 0 #000; padding: 10px 18px; font: 800 28px/1 var(--font-display); text-transform: uppercase; color: #000; }
+.d96 .sticker--tilt { position: absolute; transform: rotate(-8deg); }
+
+/* Красная CTA-панель: одна на колоду */
+.d96 .cta { background: var(--d-red); border: 2px solid #000; color: var(--d-cream); padding: 24px 32px; font: 400 32px/1.4 var(--font-text); }
+.d96 .cta b { display: block; color: #fff; font: 800 28px/1.2 var(--font-display); text-transform: uppercase; margin-bottom: 10px; }
+
+/* Стеклянный слой поверх цвета и фото: скругленный, светлый, мягкий */
+.d96 .glass-on-tint { color: #000; }
+.d96 .glass-chip { position: absolute; padding: 12px 24px; font: 800 28px/1 var(--font-display); color: #000; border-radius: 999px; }
+.d96 .glass-seal { position: absolute; width: 240px; height: 240px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #000; }
+.d96 .glass-band { position: absolute; display: flex; align-items: center; padding: 0 28px; color: rgba(0, 0, 0, 0.45); font: 900 88px/1 var(--font-display); text-transform: uppercase; }

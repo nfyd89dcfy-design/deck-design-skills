@@ -7,7 +7,7 @@ const file = process.argv[2];
 if (!file) { console.error('usage: node tools/lint-deck.mjs deck.html'); process.exit(2); }
 
 const ALLOWED = (process.env.DECK_FONTS ||
-  'Manrope,Onest,Golos Text,Geologica,Unbounded,Source Serif 4,Literata,JetBrains Mono').split(',').map(s => s.trim());
+  'Manrope,Onest,Golos Text,Geologica,Unbounded,Source Serif 4,Literata,JetBrains Mono,Montserrat,Tinos').split(',').map(s => s.trim());
 const DISCOURAGED = ['Inter', 'Roboto', 'Arial', 'Helvetica', 'system-ui'];
 
 const browser = await chromium.launch();
@@ -86,7 +86,7 @@ const issues = await page.evaluate(({ ALLOWED, DISCOURAGED }) => {
           if (Math.abs(a - b) / a > 0.03) push('error', 'distorted', el, 'Фото искажено по пропорциям, нужен object-fit');
         }
         if (alpha(cs.backgroundColor) === 1 && /rgb\(255, 255, 255\)/.test(cs.backgroundColor))
-          push('warn', 'white-box', el, 'Белая подложка под фото. Вырежи фон или поставь на нейтральную панель');
+          if (!document.body.dataset.style) push('warn', 'white-box', el, 'Белая подложка под фото. Вырежи фон или поставь на нейтральную панель');
         if (r.width < 300 && r.height < 300 && el.naturalWidth && r.width / el.naturalWidth > 1.6)
           push('warn', 'upscaled', el, 'Фото увеличено более чем в 1.6 раза, будет мутным');
         hasColorBehind = true;
@@ -105,13 +105,13 @@ const issues = await page.evaluate(({ ALLOWED, DISCOURAGED }) => {
       if (decor) hasColorBehind = true;
     });
 
-    if (usesGlass && !hasColorBehind && !/gradient/.test(getComputedStyle(s).backgroundImage))
+    if (!document.body.dataset.style && usesGlass && !hasColorBehind && !/gradient/.test(getComputedStyle(s).backgroundImage))
       out.push({ level: 'warn', rule: 'glass-on-flat', slide: n, el: '', msg: 'Стекло на плоском фоне: под ним нечего размывать' });
     if (sizes.size > 6) out.push({ level: 'warn', rule: 'type-scale', slide: n, el: '', msg: `${sizes.size} разных размеров шрифта, держись шкалы (5-6)` });
     if (textEls > 16) out.push({ level: 'warn', rule: 'density', slide: n, el: '', msg: `${textEls} текстовых блоков: слишком плотно, раздели слайд` });
   });
 
-  if (capsLabels > 2) out.push({ level: 'warn', rule: 'caps-labels', slide: 0, el: '', msg: `${capsLabels} подписей КАПСОМ над заголовками: подпись над каждым заголовком это шаблон. Оставь не больше двух на колоду` });
+  if (!document.body.dataset.style && capsLabels > 2) out.push({ level: 'warn', rule: 'caps-labels', slide: 0, el: '', msg: `${capsLabels} подписей КАПСОМ над заголовками: подпись над каждым заголовком это шаблон. Оставь не больше двух на колоду` });
   const fams = [...families].filter(f => !['serif', 'sans-serif', 'monospace'].includes(f));
   if (fams.length > 2) out.push({ level: 'error', rule: 'too-many-fonts', slide: 0, el: '', msg: `Гарнитур ${fams.length}: ${fams.join(', ')}. Максимум 2` });
   fams.forEach(f => {

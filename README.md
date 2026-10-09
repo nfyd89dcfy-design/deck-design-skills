@@ -23,6 +23,8 @@
 | `examples/bad-deck.html` | Антипример: на нем линтер обязан выдать ошибки |
 | `tools/lint-deck.mjs` | Проверка колоды на анти-паттерны (шрифты, рамки, трекинг, стекло в стекле, ё, длинные тире, заглушки) |
 | `tools/render.mjs` | Рендер в PDF и PNG каждого слайда |
+| `assets/style-dell96-glass.css`, `references/styles/dell96-glass.md` | Пресет "Dell 1996 x Liquid Glass": плоские ленты в черной рамке плюс стекло |
+| `examples/deck-dell96.html` | Эталон этого стиля: КП из 5 слайдов |
 | `docs/references.md` | Легкие внешние референсы и сборки: что брать, что нет |
 
 ## Установка навыка
@@ -52,6 +54,10 @@ node tools/render.mjs deck.html out    # out/deck.pdf и out/slide-NN.png
 Процесс обязателен: собрать, **запустить линтер, посмотреть каждый PNG и PDF**,
 исправить, только потом отдавать. Линтер ловит механические ошибки, вкус
 проверяется глазами по чек-листу.
+
+## Установленные сторонние навыки
+
+- [jiji262/claude-design-skill](https://github.com/jiji262/claude-design-skill) (MIT): общий навык дизайна HTML-артефактов (колоды, лендинги, прототипы), клонирован в `~/.claude/skills/claude-design-skill`. Установка в новой среде: `git clone --depth 1 https://github.com/jiji262/claude-design-skill ~/.claude/skills/claude-design-skill` или `npx skills add jiji262/claude-design-skill -g`. Наш навык `presentation-design` приоритетнее для слайдов: он задает стили и проверку.
 
 ## Правила заказчика (можно менять в SKILL.md)
 
