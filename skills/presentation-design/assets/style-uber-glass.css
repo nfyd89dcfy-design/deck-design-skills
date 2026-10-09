@@ -2,12 +2,13 @@
    База: Uber DESIGN.md (черно-белый дуэт, пилюля на всем интерактивном, карточки 16-20px,
    заголовки с заглавной буквы, без капса, без трекинга).
    Подключать после tokens.css и glass.css. Описание: references/styles/uber-glass.md
-   На <body>: data-style="uber-glass" data-allow-fonts="Inter" (шрифт Inter выбран заказчиком). */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&subset=cyrillic');
+   На <body>: data-style="uber-glass" data-allow-fonts="Helvetica" (шрифт выбран заказчиком). */
+/* Helvetica: платный шрифт Linotype, в сборке его нет. 'Helvetica' на Linux и в PDF-сборке подменяется метрически идентичным аналогом (Liberation Sans / Arimo, есть кириллица), на Mac используется настоящий Helvetica. */
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap&subset=cyrillic');
 
 :root {
-  --font-display: 'Inter', system-ui, sans-serif;
-  --font-text: 'Inter', system-ui, sans-serif;
+  --font-display: Helvetica, 'Helvetica Neue', Arimo, 'Liberation Sans', Arial, sans-serif;
+  --font-text: Helvetica, 'Helvetica Neue', Arimo, 'Liberation Sans', Arial, sans-serif;
   --radius-outer: 20px;   /* карточки и стекло */
   --radius-inner: 16px;
   --u-soft: #E9E6DE;      /* мягкий серый для пилюль на кремовом фоне (аналог #efefef у Uber) */
@@ -16,8 +17,8 @@
 }
 
 .slide.u { font-family: var(--font-text); }
-.u .display { font: 700 80px/1.1 var(--font-display); letter-spacing: 0; }
-.u .title { font: 700 64px/1.1 var(--font-display); letter-spacing: 0; }
+.u .display { font: 700 80px/1.08 var(--font-display); letter-spacing: -0.02em; }
+.u .title { font: 700 64px/1.1 var(--font-display); letter-spacing: -0.02em; }
 .u .name { font: 700 48px/1.1 var(--font-display); }
 .u .lead { font: 500 32px/1.4 var(--font-text); }
 .u .text { font: 400 28px/1.45 var(--font-text); }
@@ -47,3 +48,6 @@
 
 .u .muted-l { color: var(--on-light-2); }
 .u .muted-d { color: var(--on-dark-2); }
+
+/* Сноска внизу слайда: источники, реквизиты. Одна позиция на всех слайдах, низкий контраст */
+.u .footnote { position: absolute; left: 128px; right: 128px; bottom: 56px; font: 400 24px/1.3 var(--font-text); }

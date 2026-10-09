@@ -22,7 +22,7 @@
 | `examples/deck.html` | Эталонная колода из 3 слайдов |
 | `examples/bad-deck.html` | Антипример: на нем линтер обязан выдать ошибки |
 | `tools/lint-deck.mjs` | Проверка колоды на анти-паттерны (шрифты, рамки, трекинг, стекло в стекле, ё, длинные тире, заглушки) |
-| `tools/render.mjs` | Рендер в PDF и PNG каждого слайда |
+| `tools/render.mjs` | Рендер: `deck.pdf` легкий (слайды картинками 2x, около 3 МБ, быстро открывается) и `deck-vector.pdf` (выделяемый текст, тяжелый), PNG каждого слайда |
 | `assets/style-dell96-glass.css`, `references/styles/dell96-glass.md` | Пресет "Dell 1996 x Liquid Glass": плоские ленты в черной рамке плюс стекло |
 | `assets/style-uber-glass.css`, `references/styles/uber-glass.md` | Пресет "Uber x Liquid Glass" (старый вариант КП GT, пилюли и карточки по Uber) |
 | `examples/deck-uber-glass.html` | Эталон этого стиля, текущий выбор для КП |

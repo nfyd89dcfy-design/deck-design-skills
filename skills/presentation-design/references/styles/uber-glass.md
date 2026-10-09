@@ -1,11 +1,11 @@
 # Стиль "Uber x Liquid Glass"
 
 Основа: **старый вариант КП GT** (графит #0E1013, крем #F4F2EC, мягкие стеклянные карточки, синее и песочное
-свечение, шрифт Inter по выбору заказчика) плюс структура языка **Uber**
+свечение, шрифт Helvetica по выбору заказчика) плюс структура языка **Uber**
 ([DESIGN.md](https://getdesign.md/uber/design-md), VoltAgent, MIT) и немного **Liquid Glass**.
 
 Подключение: `tokens.css`, `glass.css`, `style-uber-glass.css`. На `<body>`:
-`data-style="uber-glass" data-allow-fonts="Inter"`. Эталон: `examples/deck-uber-glass.html`.
+`data-style="uber-glass" data-allow-fonts="Helvetica"`. Эталон: `examples/deck-uber-glass.html`.
 
 ## Что берем у Uber
 
@@ -38,3 +38,22 @@
 - Подписи капсом над заголовками (в Uber это только редкий эйбрау).
 - Строки через точки "А · Б · В": параметры идут пилюлями или отдельными строками.
 - Вторую пилюлю-CTA на слайде.
+
+## Шрифт Helvetica
+
+Helvetica платная (Linotype), в сборочной среде ее нет. Стек: `Helvetica, 'Helvetica Neue', Arimo, 'Liberation Sans', Arial`.
+На Mac HTML покажет настоящий Helvetica. В PDF из нашей среды подставляется метрически идентичный
+Liberation Sans (аналог Helvetica и Arial, с кириллицей). Настоящий Helvetica в PDF возможен, если
+заказчик положит файлы шрифта в репозиторий (`assets/fonts/`, лицензия на встраивание за ним).
+Модификации стиля: заголовки Bold с трекингом -0.02em, цифры tabular. Варианты Neue, Light, Condensed
+требуют соответствующих файлов шрифта.
+
+## Сноски
+
+Источники и реквизиты: `.footnote`, 24px, `bottom: 56px`, одна позиция на всех слайдах. На темных
+слайдах прозрачность 0.42. Основной контент заканчивается не ниже 150px от низа.
+
+## PDF
+
+`render.mjs` делает легкий `deck.pdf` из JPEG 2x (около 3 МБ против 14 МБ у векторного): стекло и
+размытие не пересчитываются при открытии. Минус: текст не выделяется, для этого есть `deck-vector.pdf`.
